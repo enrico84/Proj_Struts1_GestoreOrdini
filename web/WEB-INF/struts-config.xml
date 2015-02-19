@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+    <form-beans>     
+        <form-bean name="clientiAF" type="clienti.action_form.ClientiAF" />
+        <form-bean name="insClienteAF" type="clienti.action_form.InsClienteAF" />
+        <form-bean name="modClienteAF" type="clienti.action_form.ModClienteAF" />
+        
+        <form-bean name="prodottiAF" type="prodotti.action_form.ProdottiAF" />
+        <form-bean name="insProdottoAF" type="prodotti.action_form.InsProdottoAF" />
+        <form-bean name="modProdottoAF" type="prodotti.action_form.ModProdottoAF" />
+        
+        <form-bean name="ordiniAF" type="ordini.action_form.OrdiniAF" />
+        <form-bean name="insOrdineAF" type="ordini.action_form.InsOrdineAF"/>
+        <form-bean name="insModOrdine" type="ordini.action_form.InsModOrdine" />
+        <form-bean name="modOrdineAF" type="ordini.action_form.ModOrdineAF" />
+        <form-bean name="modProdottoOrdinatoAF" type="ordini.action_form.ModProdottoOrdinatoAF"/>
+        <form-bean name="insProdottoOrdineAF" type="ordini.action_form.InsProdottoOrdineAF"/>
+     </form-beans>
+    
+    <!--....................Clienti............................-->
+    <action-mappings>
+         <action name="clientiAF" path="/gestisciClienti" scope="session" 
+                 type="clienti.action.GestisciClientiA" validate="false">
+            <forward name="next" path="/VClienti.jsp"/>
+         </action>   
+        <action path="/startInserisciCliente" forward="/VInsCliente.jsp" />
+        <action input="/VInsCliente.jsp" name="insClienteAF" path="/inserisciCliente" scope="request" 
+                type="clienti.action.InserisciClienteA" validate="true">
+                <forward name="next" path="/gestisciClienti.do" />
+        </action>
+        
+        <action path="/gestisciClienti.do" forward="/VClienti.jsp" />       
+        <action path="/homepage" forward="/index.jsp" />  
+        <action path="/_visualizzaDettaglioCliente.do" forward="/ModCliente.jsp"  /> 
+        
+        <action name="clientiAF" path="/visualizzaDettaglioCliente" scope="session" 
+                type="clienti.action.VisualizzaDettaglioClienteA" validate="false" >
+                <forward name="next" path="/_visualizzaDettaglioCliente.do" />
+        </action>   
+        <action name="modClienteAF" path="/_visualizzaDettaglioCliente" scope="session"
+                type="clienti.action._VisualizzaDettaglioClienteA" validate="false" >
+                <forward name="next" path="/ModCliente.jsp" />
+        </action>   
+        <action input="/ModCliente.jsp" name="modClienteAF" path="/modificaCliente" scope="session"
+                type="clienti.action.ModificaClienteA" validate="true">
+                <forward name="next" path="/gestisciClienti.do" />
+        </action>    
+        <action name="modClienteAF" path="/eliminaCliente" scope="session" type="clienti.action.EliminaClienteA"
+                validate="false">
+                <forward name="next" path="/gestisciClienti.do" />
+        </action>  
+        <!--....................Prodotti............................-->
+        <action name="prodottiAF" path="/gestisciProdotti" scope="session" 
+                 type="prodotti.action.GestisciProdottiA" validate="false">
+            <forward name="next" path="/VProdotti.jsp"/>
+         </action>
+         <action path="/startInserisciProdotto" forward="/VInsProdotto.jsp" />
+         <action input="/VInsProdotto.jsp" name="insProdottoAF" path="/inserisciProdotto" scope="request" 
+                type="prodotti.action.InserisciProdottoA" validate="true">
+                <forward name="next" path="/gestisciProdotti.do" />
+        </action>
+        <action path="/gestisciProdotti.do" forward="/VProdotti.jsp" />
+         <action name="prodottiAF" path="/visualizzaDettaglioProdotto" scope="session" 
+                type="prodotti.action.VisualizzaDettaglioProdottoA" validate="false" >
+                <forward name="next" path="/_visualizzaDettaglioProdotto.do" />
+        </action>   
+        <action name="modProdottoAF" path="/_visualizzaDettaglioProdotto" scope="session"
+                type="prodotti.action._VisualizzaDettaglioProdottoA" validate="false">
+            <forward name="next" path="/ModProdotto.jsp" />
+        </action>
+        <action input="/ModProdotto.jsp" name="modProdottoAF" path="/modificaProdotto"
+                scope="session" type="prodotti.action.ModificaProdottoA" validate="true">
+            <forward name="next" path="/gestisciProdotti.do" />
+        </action>
+        <action name="modProdottoAF" path="/eliminaProdotto" scope="session" 
+                type="prodotti.action.EliminaProdottoA" validate="false">
+                <forward name="next" path="/gestisciProdotti.do" />
+        </action>
+        
+              <!--....................Ordini............................-->
+        <action name="ordiniAF" path="/gestisciOrdini" scope="session" 
+                type="ordini.action.GestisciOrdiniA" validate="false">
+            <forward name="next" path="/VOrdini.jsp"/>
+        </action>   
+        
+        <action path="/startInserimentoOrdine" forward="/ClientiOrdA.do" /> 
+        
+        <action name="insModOrdine" path="/ClientiOrdA" type="ordini.action.ClientiOrdA" 
+                validate="false" scope="session" >
+            <forward name="next" path="/VInsOrdine.jsp"/>
+        </action>
+        <action input="/VInsOrdine.jsp" name="insOrdineAF" path="/inserisciOrdine" 
+                scope="request" type="ordini.action.InserisciOrdineA" validate="true">
+             <forward name="next" path="/gestisciOrdini.do"/>
+        </action>
+        
+        <action path="/gestisciOrdini" forward="/VOrdini.jsp" />
+        <action path="/_visualizzaDettaglioOrdine" forward="ModOrdine.jsp"/>
+        
+        <action name="ordiniAF" path="/visualizzaDettaglioOrdine" scope="session"
+                type="ordini.action.VisualizzaDettaglioOrdineA" validate="false">
+                <forward name="next" path="/_visualizzaDettaglioOrdine.do"/>
+        </action>
+        <action name="modOrdineAF" path="/_visualizzaDettaglioOrdine" scope="session"
+                type="ordini.action._VisualizzaDettaglioOrdineA" validate="false">
+            <forward name="next" path="/ModOrdine.jsp" />
+        </action>
+         <action name="modOrdineAF" path="/eliminaOrdine" scope="session" 
+                type="ordini.action.EliminaOrdineA" validate="false">
+                <forward name="next" path="/gestisciOrdini.do" />
+        </action>                            
+        <action input="/ModOrdine.jsp" name="modOrdineAF" path="/modificaOrdine"
+                scope="session" type="ordini.action.ModificaOrdineA" validate="true">
+            <forward name="next" path="/gestisciOrdini.do" />
+        </action>
+        <action name="modOrdineAF" path="/startAggiungiProdottoA" type="ordini.action.StartAggiungiProdottoA"
+            scope="session" validate="false">
+            <forward name="next" path="/_startAggiungiProdottoA.do" />
+        </action> 
+        <action name="insProdottoOrdineAF" path="/_startAggiungiProdottoA" scope="session" 
+                   type="ordini.action._StartAggiungiProdottoA" validate="false">
+            <forward name="next" path="/VInsProdottoOrdinato.jsp"/>
+        </action>
+        
+         <action name="insProdottoOrdineAF" path="/aggiungiProdotto" scope="session" 
+                type="ordini.action.AggiungiProdottoA" validate="true">
+                <forward name="next" path="/gestisciOrdini.do" /> 
+        </action>
+         <!-- <forward name="next" path="/_visualizzaDettaglioOrdine.do" /> -->
+        <action name="modOrdineAF" path="/eliminaProdottoOrdinatoA" scope="session"
+                type="ordini.action.VerificaEliminaOrdineProdottoA" validate="false">
+            <forward name="next" path="/VerificaEliminaOrdineProdotto.jsp" />
+        </action>
+        <action input="/VerificaEliminaOrdineProdotto.jsp" name="modOrdineAF" path="/confermaEliminaProdottoA"
+                  type="ordini.action.ConfermaEliminaProdottoA"  validate="false">
+           <forward name="next" path="/gestisciOrdini.do"/>
+        </action>
+        
+        <action name="modOrdineAF" path="/modificaProdottoOrdinatoA" 
+                type="ordini.action.VerificaModificaOrdineProdottoA" scope="session" validate="false">
+            <forward name="next" path="/_verificaModificaOrdineProdottoA.do" />
+        </action>
+        <action name="modProdottoOrdinatoAF" path="/_verificaModificaOrdineProdottoA" scope="session"
+                 type="ordini.action._VerificaModificaOrdineProdottoA" validate="false">
+            <forward name="next" path="/VerificaModificaOrdineProdotto.jsp"/>
+         </action>
+        <action input="/VerificaModificaOrdineProdotto.jsp" name="modProdottoOrdinatoAF" scope="session"
+                 path="/confermaModificaProdottoA" type="ordini.action.ConfermaModificaProdottoA" validate="true" >
+            <forward name="next" path="/gestisciOrdini.do"/>
+        </action>  
+         
+    </action-mappings>
+
+    <!-- <message-resources parameter="com/myapp/struts/ApplicationResource"/> --> 
+    <message-resources parameter="dizionari/ApplicationResource"/>  
+   
+    
+    <plug-in className="org.apache.struts.tiles.TilesPlugin" >
+        <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml" />      
+        <set-property property="moduleAware" value="true" />
+    </plug-in>
+    
+    <!-- ========================= Validator plugin ================================= -->
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property
+            property="pathnames"
+            value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml"/>
+    </plug-in>
+  
+</struts-config>
